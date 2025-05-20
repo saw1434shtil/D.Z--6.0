@@ -1,0 +1,25 @@
+body {
+    background: linear-gradient(45deg, rgb(5, 151, 78) 0%, rgba(11,3,45,1) 100%); 
+    background-size: cover;
+    background-position: center;  
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    height: 100vh;  
+}
+
+.text-center {
+    border: 0;
+}
+
+.card-body {
+    background-color: rgb(215, 193, 236);
+    
+}
+
+.card-header {
+    background-color: rgb(117, 194, 155);
+    font-family: URW Chancery L, cursive;
+    font-size: larger;
+
+}
