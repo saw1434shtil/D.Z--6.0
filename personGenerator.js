@@ -85,6 +85,29 @@ const personGenerator = {
         }
     }`,
 
+    month30Json: `{
+        "count": 4,
+        "list": {     
+            "id_1": "Апреля",
+            "id_2": "Июня",
+            "id_3": "Сентября",
+            "id_4": "Ноября"
+        }
+    }`,
+
+    month31Json: `{
+        "count": 7,
+        "list": {     
+            "id_1": "Января",
+            "id_2": "Марта",
+            "id_3": "Мая",
+            "id_4": "Июля",
+            "id_5": "Августа",
+            "id_6": "Октяря",
+            "id_7": "Декабря"
+        }
+    }`,
+
     
 
     GENDER_MALE: 'Мужчина',
@@ -112,6 +135,7 @@ const personGenerator = {
         }
 
     },
+
 
     randomPatronymic: function () {
         const suffix1 = ['ович', 'овна'];
@@ -166,8 +190,6 @@ const personGenerator = {
             
         }
     },
-        
-
 
 
      randomSurname: function() {
@@ -181,9 +203,23 @@ const personGenerator = {
 
     },
 
-    randomBirthYear: function (minYear = 1950, maxYear = 2000) {
-        return this.randomIntNumber (minYear, maxYear);
+
+    randomBirthYear: function () {
+        if (Math.floor(Math.random() * 3) == 0) {
+            year = this.randomIntNumber(1950, 2000);
+            month = this.randomValue(this.month31Json);
+            day = this.randomIntNumber(31, 1);
+        } else 
+        if (Math.floor(Math.random() * 3) == 1) {
+            year = this.randomIntNumber(1950, 2000);
+            month = this.randomValue(this.month30Json);
+            day = this.randomIntNumber(30, 1);
+        } 
+        birthday = day + ' ' + month + ' ' + year + " Года рождения"; 
+        return birthday;
+
     },
+
 
     randomProfession: function () {
         if (this.person.gender == this.GENDER_MALE) {
