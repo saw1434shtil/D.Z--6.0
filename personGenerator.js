@@ -136,87 +136,42 @@ const personGenerator = {
 
     },
 
+    randomSurName: function() {
+        if (this.person.gender === this.GENDER_MALE) {
+          return this.randomValue(this.surnameJson);
+        }
+        else {
+          return this.randomValue(this.surnameJson) + 'а';
+        }  
+    },
+
 
     randomPatronymic: function () {
-        const suffix1 = ['ович', 'овна'];
-        const suffix2 = ['евич', 'евна'];
-        const suffix3 = ['ич', 'ична'];
-        const suffix4 = ['йлович', 'йловна'];
-
-        const maleNames = JSON.parse (this.firstNameMaleJson).list;
-
-        this.person.patronymic = this.randomValue(this.firstNameMaleJson);
-    
-
-        if (this.person.patronymic === maleNames.id_7) {
-            if (this.person.gender=== this.GENDER_MALE) {
-                
-                return this.person.patronymic + suffix4[0];
-            }
-            else {
-                
-                return this.person.patronymic + suffix4[1];
-            }
-            
+        patronymic = this.randomValue (this.firstNameMaleJson);
+        if (this.person.gender == this.GENDER_MALE) {
+            if (patronymic.includes ('й')) {
+                patronymic = patronymic.replace ("й","евич");
+            } else
+            if (patronymic.includes ('Никита')) {
+                patronymic = patronymic.replace ("а","ич");
+            } else
+            patronymic = patronymic + "ович";
+        } else
+        if (this.person.gender == this.GENDER_FEMALE) {
+            if (patronymic.includes ('й')) {
+                patronymic = patronymic.replace ("й","евна");
+            } else
+            if (patronymic.includes ('Никита')) {
+                patronymic = patronymic.replace ("а","ична");
+            } else
+            patronymic = patronymic + "овна";
         }
-        if (this.person.patronymic === maleNames.id_6) {
-            if (this.person.gender=== this.GENDER_MALE) {
-
-                return this.person.patronymic + suffix3[0];
-            }
-            else {
-                return this.person.patronymic + suffix3[1];
-            }
-           
-        }
-
-        if (this.person.patronymic === maleNames.id_5 || this.person.patronymic === maleNames.id_10) {
-            if (this.person.gender===this.GENDER_MALE) {
-
-                return this.person.patronymic + suffix2[0];
-            }
-            else {
-                return this.person.patronymic + suffix2[1];
-            }
-            
-        }
-        else {
-            if (this.person.gender === this.GENDER_MALE) {
-                return this.person.patronymic + suffix1[0];
-            }
-            else {
-                return this.person.patronymic + suffix1[1];
-            }
-            
-        }
+        return patronymic;
     },
 
 
-     randomSurname: function() {
-
-        if (this.person.gender === this.GENDER_MALE) {
-            return this.randomValue(this.surnameJson);
-        }
-        else {
-            return `${this.randomValue(this.surnameJson)}а`;
-        }
-
-    },
-
-
-    randomBirthYear: function () {
-        if (Math.floor(Math.random() * 3) == 0) {
-            year = this.randomIntNumber(1950, 2000);
-            month = this.randomValue(this.month31Json);
-            day = this.randomIntNumber(31, 1);
-        } else 
-        if (Math.floor(Math.random() * 3) == 1) {
-            year = this.randomIntNumber(1950, 2000);
-            month = this.randomValue(this.month30Json);
-            day = this.randomIntNumber(30, 1);
-        } 
-        birthday = day + ' ' + month + ' ' + year + " Года рождения"; 
-        return birthday;
+    randomBirthYear: function (minYear = 1950, maxYear = 2000) {
+        return this.randomIntNumber (minYear, maxYear);
 
     },
 
@@ -236,7 +191,7 @@ const personGenerator = {
         this.person.gender = this.randomGender();       //пол
         this.person.firstName = this.randomFirstName(); //имя
         this.person.patronymic = this.randomPatronymic();//отчество
-        this.person.surName = this.randomSurname();     //фамилия
+        this.person.surName = this.randomSurName();     //фамилия
         this.person.birthYear = this.randomBirthYear(); //год
         this.person.profession = this.randomProfession();//профессия
 
